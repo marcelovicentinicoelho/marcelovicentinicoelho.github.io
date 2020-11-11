@@ -2,7 +2,7 @@ function inicializar() {
   document.getElementById("txtVlrCobranca").value = '';
   document.getElementById("txtVlrCobranca").focus();
 
-  document.getElementById("lblValidacao").value = '';
+  document.getElementById("lblValidacao").innerHTML = '';
 
   document.getElementById("txtVlrBoleto").value = '0,00';
   document.getElementById("fraVlrBoleto").style.display = 'none';
@@ -18,7 +18,8 @@ function calcular() {
   var objErro = JSON.parse(validar());
 
   if (objErro.Numero != '0') {
-    document.getElementById("lblValidacao").value = objErro.Descricao;
+    document.getElementById("lblValidacao").innerHTML = objErro.Descricao;
+    timer = setInterval(LimparValidacao, 3000);
     document.getElementById(objErro.Objeto).focus();
     return;
   }
@@ -43,11 +44,13 @@ function validar() {
     switch (objErro.Numero) {
       case '1':
         strJSON = '{ "Numero":"2" , "Descricao":"O campo valor da cobrança deve ser numérico." , "Objeto":"txtVlrCobranca" }';
-  
+        break;
+
       case '2':
       case '3':
         strJSON = '{ "Numero":"3" , "Descricao":"O campo valor da cobrança não está formatado corretamente." , "Objeto":"txtVlrCobranca" }';
-  
+        break;
+
       default:
         strJSON = '{ "Numero":"0" , "Descricao":"Não foram detectadas inconsistências." , "Objeto":"Null" }';
     }  
@@ -90,4 +93,9 @@ function validarFormatoMoeda(pCampo) {
   }
 
   return strJSON;
+}
+
+function LimparValidacao() {
+  clearInterval(timer);
+  document.getElementById("lblValidacao").innerHTML = '';
 }

@@ -13,7 +13,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="css/styles.css">
-    <script type="text/javascript" src="js/main.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/jquery.js"></script>
 
   </head>
 
@@ -24,10 +25,10 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <h2>Valor da Cobrança</h2>
+            <h2><b>Valor da Cobrança</b></h2>
             <h4>Não use ponto para o separador de milhar. Use apenas a vírgula para colocar os centavos, se houver.</h4>
             <input id="txtVlrCobranca" type="text" class="form-control input-lg input-valor">
-            <span id="lblValidacao" class="label-validacao"></span>
+            <label id="lblValidacao" class="label-validacao"></label>
           </div>
         </div>
       </div>
@@ -35,7 +36,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <h2>Retenção do ISS</h2>
+            <h2><b>Retenção do ISS</b></h2>
             <select id="cmbRetencao" class="form-control input-lg">
               <option>Tomador</option>
               <option>Prestador</option>

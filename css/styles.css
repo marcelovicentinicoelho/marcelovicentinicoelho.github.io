@@ -1,3 +1,7 @@
 .input-valor {
   text-align: right;
 }
+
+.label-validacao {
+  color: red;
+}

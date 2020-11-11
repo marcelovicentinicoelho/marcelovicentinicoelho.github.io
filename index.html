@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+  <head>
+
+    <title>Simulador</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" src="js/main.js"></script>
+
+  </head>
+
+  <body onload="inicializar();">
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <h2>Valor da Cobrança</h2>
+            <h6>Não use ponto para o separador de milhar. Use apenas a vírgula para colocar os centavos, se houver.</h6>
+            <input type="text" class="form-control input-lg input-valor" id="txtVlrCobranca">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <h2>Retenção do ISS</h2>
+            <select class="form-control input-lg" id="cmbRetencao">
+              <option>Tomador</option>
+              <option>Prestador</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-1">
+          <div class="form-group">
+            <h6>INSS (%)</h6>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="form-group">
+            <input type="text" class="form-control input-valor input-lg" id="txtVlrINSS" disabled>
+          </div>
+        </div>
+        <div class="col-xs-1">
+          <div class="form-group">
+          </div>
+        </div>
+        <div class="col-xs-1">
+          <div class="form-group">
+          </div>
+        </div>
+        <div class="col-xs-1">
+          <div class="form-group">
+            <h6>ISS (%)</h6>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <div class="form-group">
+            <input type="text" class="form-control input-valor input-lg" id="txtVlrISSQN" disabled>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <button type="button" class="btn btn-success input-lg" id="cmdCalcular" onclick="calcular();">Calcular</button>
+            <button type="button" class="btn btn-primary input-lg" id="cmdLimpar" onclick="inicializar();">Limpar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="fraVlrBoleto">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <h2>Valor do Boleto</h2>
+            <input type="text" class="form-control input-valor" id="txtVlrBoleto" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="fraVlrNF">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <h2>Valor da NF</h2>
+            <input type="text" class="form-control input-valor" id="txtVlrNF" disabled>
+          </div>
+        </div>
+
+      </div>
+
+  </body>
+
+</html>

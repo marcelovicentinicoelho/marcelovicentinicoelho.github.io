@@ -17,7 +17,7 @@ function inicializar() {
 function calcular() {
   var objErro = JSON.parse(validar());
 
-  if (objErro.Numero != '0') {
+  if (objErro.Numero != 0) {
     document.getElementById("lblValidacao").innerHTML = objErro.Descricao;
     timer = setInterval(LimparValidacao, 3000);
     document.getElementById(objErro.Objeto).focus();
@@ -38,21 +38,25 @@ function validar() {
   var objCampo = document.getElementById("txtVlrCobranca");
 
   if (objCampo.value == '') {
-    strJSON = '{ "Numero":"1" , "Descricao":"O campo valor da cobrança deve ser preenchido." , "Objeto":"txtVlrCobranca" }';
+
+    strJSON = '{ "Numero":1 , "Descricao":"O campo valor da cobrança deve ser preenchido." , "Objeto":"txtVlrCobranca" }';
+
   } else {
+    
     var objErro = JSON.parse(validarFormatoMoeda(objCampo.value));
+    
     switch (objErro.Numero) {
-      case '1':
-        strJSON = '{ "Numero":"2" , "Descricao":"O campo valor da cobrança deve ser numérico." , "Objeto":"txtVlrCobranca" }';
+      case 1:
+        strJSON = '{ "Numero":2 , "Descricao":"O campo valor da cobrança deve ser numérico." , "Objeto":"txtVlrCobranca" }';
         break;
 
-      case '2':
-      case '3':
-        strJSON = '{ "Numero":"3" , "Descricao":"O campo valor da cobrança não está formatado corretamente." , "Objeto":"txtVlrCobranca" }';
+      case 2:
+      case 3:
+        strJSON = '{ "Numero":3 , "Descricao":"O campo valor da cobrança não está formatado corretamente." , "Objeto":"txtVlrCobranca" }';
         break;
 
       default:
-        strJSON = '{ "Numero":"0" , "Descricao":"Não foram detectadas inconsistências." , "Objeto":"Null" }';
+        strJSON = '{ "Numero":0 , "Descricao":"Não foram detectadas inconsistências." , "Objeto":"Null" }';
     }  
   }
 
@@ -83,13 +87,13 @@ function validarFormatoMoeda(pCampo) {
   }
 
   if (qtdOutros > 0) {
-    strJSON = '{ "Numero":"1" , "Descricao":"Caracteres não numéricos" }';
+    strJSON = '{ "Numero":1 , "Descricao":"Caracteres não numéricos" }';
   } else if (qtdVirgulas > 1) {
-      strJSON = '{ "Numero":"2" , "Descricao":"Vírgulas" }';
+      strJSON = '{ "Numero":2 , "Descricao":"Vírgulas" }';
   } else if (qtdPontos > 0) {
-      strJSON = '{ "Numero":"3" , "Descricao":"Pontos" }';
+      strJSON = '{ "Numero":3 , "Descricao":"Pontos" }';
   } else {
-      strJSON = '{ "Numero":"0" , "Descricao":"Não há erros de formatação" }';
+      strJSON = '{ "Numero":0 , "Descricao":"Não há erros de formatação" }';
   }
 
   return strJSON;

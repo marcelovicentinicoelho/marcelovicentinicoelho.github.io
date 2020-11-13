@@ -1,11 +1,8 @@
 function inicializar() {
-  document.getElementById("txtVlrCobranca").value = '';
-  document.getElementById("txtVlrCobranca").focus();
+  document.getElementById("txtVlrBoleto").value = '';
+  document.getElementById("txtVlrBoleto").focus();
 
   document.getElementById("lblValidacao").innerHTML = '';
-
-  document.getElementById("txtVlrBoleto").value = '0,00';
-  document.getElementById("fraVlrBoleto").style.display = 'none';
 
   document.getElementById("txtVlrNF").value = '0,00';
   document.getElementById("fraVlrNF").style.display = 'none';
@@ -15,6 +12,12 @@ function inicializar() {
 }
 
 function calcular() {
+  var dblVlrNF;
+  var dblVlrBoleto;
+  var strTomadorPrestador;
+  var dblVlrINSS;
+  var dblVlrISSQN;
+  var dblVlrImpostos;
   var objErro = JSON.parse(validar());
 
   if (objErro.Numero != 0) {
@@ -24,22 +27,30 @@ function calcular() {
     return;
   }
 
-  document.getElementById("txtVlrBoleto").value = '12,34';
-  document.getElementById("fraVlrBoleto").style.display = 'block';
+  dblVlrBoleto = parseFloat(document.getElementById("txtVlrBoleto").value.replace(',', '.'));
+  strTomadorPrestador = document.getElementById("cmbRetencao").value.substr(0, 1).toUpperCase();  
+  dblVlrINSS = parseFloat(document.getElementById("txtVlrINSS").value.replace(',', '.'));
+  dblVlrISSQN = parseFloat(document.getElementById("txtVlrISSQN").value.replace(',', '.'));
 
-  document.getElementById("txtVlrNF").value = '56,78';
+  dblVlrImpostos = 0;
+  if (strTomadorPrestador == 'T') {
+    dblVlrImpostos = dblVlrISSQN;  
+  }
+  dblVlrImpostos += dblVlrINSS;
+  dblVlrNF = dblVlrBoleto / (1 - (dblVlrImpostos / 100));
+
+  document.getElementById("txtVlrNF").value = dblVlrNF.toFixed(2);
   document.getElementById("fraVlrNF").style.display = 'block';
-
-  document.getElementById("txtVlrCobranca").focus();
+  document.getElementById("txtVlrBoleto").focus();
 }
 
 function validar() {
   var strJSON;
-  var objCampo = document.getElementById("txtVlrCobranca");
+  var objCampo = document.getElementById("txtVlrBoleto");
 
   if (objCampo.value == '') {
 
-    strJSON = '{ "Numero":1 , "Descricao":"O campo valor da cobrança deve ser preenchido." , "Objeto":"txtVlrCobranca" }';
+    strJSON = '{ "Numero":1 , "Descricao":"O campo valor da cobrança deve ser preenchido." , "Objeto":"txtVlrBoleto" }';
 
   } else {
     
@@ -47,12 +58,12 @@ function validar() {
     
     switch (objErro.Numero) {
       case 1:
-        strJSON = '{ "Numero":2 , "Descricao":"O campo valor da cobrança deve ser numérico." , "Objeto":"txtVlrCobranca" }';
+        strJSON = '{ "Numero":2 , "Descricao":"O campo valor da cobrança deve ser numérico." , "Objeto":"txtVlrBoleto" }';
         break;
 
       case 2:
       case 3:
-        strJSON = '{ "Numero":3 , "Descricao":"O campo valor da cobrança não está formatado corretamente." , "Objeto":"txtVlrCobranca" }';
+        strJSON = '{ "Numero":3 , "Descricao":"O campo valor da cobrança não está formatado corretamente." , "Objeto":"txtVlrBoleto" }';
         break;
 
       default:

@@ -5,3 +5,11 @@
 .label-validacao {
   color: red;
 }
+
+.botao-a-esquerda {
+  text-align: left;
+}
+
+.botao-a-direita {
+  text-align: right;
+}

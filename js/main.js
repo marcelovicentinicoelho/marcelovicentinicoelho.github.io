@@ -1,6 +1,24 @@
+// Constantes utilizadas para referenciar os dados lidos do JSON
 const cstParametros = 0;
 const cstINSS = 0;
 const cstISSQN = 1;
+
+// Tipo de dado utilizado como objeto para troca de mensagens entre funções
+var objMensagem = {
+  Numero : 0,
+  Descricao : "Descrição",
+  Objeto : "Objeto",
+
+  gerarJSON : 
+  function () {
+              strJSON = '{';
+    strJSON = strJSON + ' "Numero" : ' + this.Numero + ' , ';
+    strJSON = strJSON + ' "Descricao" : "' + this.Descricao + '" , ';
+    strJSON = strJSON + ' "Objeto" : "' + this.Objeto + '" ';
+    strJSON = strJSON + '}';
+    return strJSON;
+  }
+}
 
 function inicializar() {
   var strRequestURL = 'https://marcelovicentinicoelho.github.io/json/database.json';
@@ -31,9 +49,10 @@ function carregarImpostos(objDB) {
 
 function calcular() {
   var objErro = JSON.parse(validar());
+
   if (objErro.Numero != 0) {
     document.getElementById("lblValidacao").innerHTML = objErro.Descricao;
-    timer = setInterval(LimparValidacao, 3000);
+    timer = setInterval(LimparValidacao(), 3000);
     document.getElementById(objErro.Objeto).focus();
     return;
   }
@@ -56,19 +75,23 @@ function calcularValorNF() {
   dblVlrImpostos += dblVlrINSS;
 
   var dblVlrNF = dblVlrBoleto / (1 - (dblVlrImpostos / 100));
-
   return dblVlrNF;
 }
 
 function validar() {
   var objCampo = document.getElementById("txtVlrBoleto");
-  var strJSON = '{ "Numero":0 , "Descricao":"Não foram detectadas inconsistências." , "Objeto":"Nenhum" }';
+
+  objMensagem.Numero = 0;
+  objMensagem.Descricao = 'Não foram detectadas inconsistências.';
+  objMensagem.Objeto = 'Nenhum';
 
   if (objCampo.value == '') {
-    strJSON = '{ "Numero":1 , "Descricao":"O campo valor da cobrança deve ser preenchido." , "Objeto":"txtVlrBoleto" }';
+    objMensagem.Numero = 1;
+    objMensagem.Descricao = 'O campo valor da cobrança deve ser preenchido.';
+    objMensagem.Objeto = 'txtVlrBoleto';
   }
 
-  return strJSON;
+  return objMensagem.gerarJSON();
 }
 
 function LimparValidacao() {

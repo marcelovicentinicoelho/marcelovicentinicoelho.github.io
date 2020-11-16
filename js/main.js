@@ -1,4 +1,11 @@
+const cstParametros = 0;
+const cstINSS = 0;
+const cstISSQN = 1;
+
 function inicializar() {
+  var strRequestURL = 'https://marcelovicentinicoelho.github.io/json/database.json';
+  var objRequest = new XMLHttpRequest();
+
   document.getElementById("txtVlrBoleto").value = '';
   document.getElementById("txtVlrBoleto").focus();
 
@@ -7,8 +14,19 @@ function inicializar() {
   document.getElementById("txtVlrNF").value = '0,00';
   document.getElementById("fraVlrNF").style.display = 'none';
 
-  document.getElementById("txtVlrINSS").value = '11,00';
-  document.getElementById("txtVlrISSQN").value = '2,01';
+  objRequest.open('GET', strRequestURL);
+  objRequest.responseType = 'json';
+  objRequest.send();
+  objRequest.onload = function() {
+    var objJSON = objRequest.response;
+    carregarImpostos(objJSON);
+  }
+
+}
+
+function carregarImpostos(objDB) {
+  document.getElementById("txtVlrINSS").value = objDB.Tabelas[cstParametros].Impostos[cstINSS].Porcentagem.toFixed(2);
+  document.getElementById("txtVlrISSQN").value = objDB.Tabelas[cstParametros].Impostos[cstISSQN].Porcentagem.toFixed(2);
 }
 
 function calcular() {

@@ -52,7 +52,7 @@ function calcular() {
 
   if (objErro.Numero != 0) {
     document.getElementById("lblValidacao").innerHTML = objErro.Descricao;
-    timer = setInterval(LimparValidacao(), 3000);
+    timer = setInterval(LimparValidacao, 3000);
     document.getElementById(objErro.Objeto).focus();
     return;
   }

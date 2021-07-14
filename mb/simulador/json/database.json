@@ -1,0 +1,19 @@
+{
+  "Tabelas" :
+  [
+    {
+      "Nome" : "TB_Parametros",
+      "Impostos" :
+      [
+        {
+          "Nome" : "INSS",
+          "Porcentagem" : 11.00
+        },
+        {
+          "Nome" : "ISSQN",
+          "Porcentagem" : 2.01
+        }
+      ]
+    }
+  ]
+}
